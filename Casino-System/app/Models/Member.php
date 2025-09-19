@@ -34,4 +34,24 @@ class Member extends Model
         'source_of_fund_self' => 'boolean',
         'source_of_fund_employed' => 'boolean',
     ];
+
+    public function businessDetail()
+    {
+        return $this->hasOne(BusinessDetail::class);
+    }
+
+    public function employmentDetail()
+    {
+        return $this->hasOne(EmploymentDetail::class);
+    }
+
+    public function emergencyContact()
+    {
+        return $this->hasOne(EmergencyContact::class);
+    }
+    
+    public function politicalExposure()
+    {
+        return $this->hasOne(PoliticalExposure::class);
+    }
 }
