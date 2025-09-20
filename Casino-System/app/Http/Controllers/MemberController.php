@@ -17,7 +17,8 @@ class MemberController extends Controller
 
     public function index()
     {
-        $members = $this->service->getAll();
+        $members = $this->service->getAllPaginated(20);
+
         return view('members.index', compact('members'));
     }
 

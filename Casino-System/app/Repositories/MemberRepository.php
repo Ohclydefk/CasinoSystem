@@ -40,5 +40,12 @@ class MemberRepository
         $member = $this->find($id);
         return $member->delete();
     }
+
+    public function paginate($perPage = 20)
+    {
+        return Member::with(['businessDetail', 'employmentDetail', 'politicalExposure', 'emergencyContact'])
+            ->orderBy('id', 'desc')
+            ->paginate($perPage);
+    }
 }
 

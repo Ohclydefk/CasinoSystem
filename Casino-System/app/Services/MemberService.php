@@ -30,6 +30,11 @@ class MemberService
         return $this->repository->find($id);
     }
 
+    public function getAllPaginated($perPage = 20)
+    {
+        return $this->repository->paginate($perPage);
+    }
+
     public function store(array $data)
     {
         // Step 1: validate member data
