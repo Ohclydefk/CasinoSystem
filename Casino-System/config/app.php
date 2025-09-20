@@ -123,4 +123,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+
+    // Customized Config Variables
+    'fontawesome_kit' => env('FONTAWESOME_KIT', null),
+
 ];

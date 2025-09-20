@@ -30,7 +30,7 @@ class MemberService
         return $this->repository->find($id);
     }
 
-    public function getAllPaginated($perPage = 20)
+    public function getAllPaginated($perPage = 20) // Default to 20
     {
         return $this->repository->paginate($perPage);
     }

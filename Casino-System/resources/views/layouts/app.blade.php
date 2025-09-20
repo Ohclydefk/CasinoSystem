@@ -1,28 +1,61 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Casino System - Membership</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    @if (config('app.fontawesome_kit'))
+        <script src="{{ config('app.fontawesome_kit') }}" crossorigin="anonymous"></script>
+    @endif
+    <style>
+        body {
+            overflow-x: hidden;
+            padding-top: 56px;
+            /* height of navbar */
+        }
+
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 56px;
+            /* push down below navbar */
+        }
+
+        main {
+            margin-left: 16.6667%;
+            /* 2 columns (col-md-2) */
+        }
+
+        .nav-link.active {
+            background-color: #0d6efd;
+            border-radius: .375rem;
+        }
+
+        .nav-custom-bg {
+            background-color: #303742;
+        }
+    </style>
+
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ route('members.index') }}">Casino System</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('members.index') }}">Members</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('members.create') }}">Add Member</a>
-                    </li>
-                </ul>
-            </div>
+    <!-- Navbar -->
+    @include('members.partials.navbar')
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            @include('members.partials.sidebar')
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                @yield('content')
+            </main>
         </div>
-    </nav>
-    <main class="container">
-        @yield('content')
-    </main>
+    </div>
 </body>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </html>

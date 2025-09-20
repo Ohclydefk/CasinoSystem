@@ -41,7 +41,7 @@ class MemberRepository
         return $member->delete();
     }
 
-    public function paginate($perPage = 20)
+    public function paginate($perPage = 20) // Default to 20
     {
         return Member::with(['businessDetail', 'employmentDetail', 'politicalExposure', 'emergencyContact'])
             ->orderBy('id', 'desc')

@@ -17,7 +17,7 @@ class MemberController extends Controller
 
     public function index()
     {
-        $members = $this->service->getAllPaginated(20);
+        $members = $this->service->getAllPaginated(10); // Customize pagination here
 
         return view('members.index', compact('members'));
     }
@@ -31,7 +31,7 @@ class MemberController extends Controller
     {
         try {
             $this->service->store($request->all());
-            return redirect()->route('members.index')->with('success', 'Member created successfully.');
+            return redirect()->route('members.index')->with('success', 'New Member added successfully.');
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->validator)->withInput();
         }
@@ -47,7 +47,7 @@ class MemberController extends Controller
     {
         try {
             $this->service->update($id, $request->all());
-            return redirect()->route('members.index')->with('success', 'Member updated successfully.');
+            return redirect()->route('members.index')->with('success', 'Member information updated successfully.');
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->validator)->withInput();
         }

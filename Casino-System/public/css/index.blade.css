@@ -1,0 +1,80 @@
+/* Improved Table Styling */
+.table-card {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border: none;
+}
+
+/* Action buttons fix */
+.action-btn-group {
+    display: flex;
+    gap: 0.25rem;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+.btn-action {
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    height: 38px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+}
+
+.btn-view {
+    background: #0d6efd;
+    color: #fff !important;
+}
+
+.btn-edit {
+    background: #ffc107;
+    color: #212529 !important;
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: #fff !important;
+}
+
+.btn-action i {
+    font-size: 1.1rem;
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    opacity: 0.95;
+}
+
+.btn-view:hover,
+.btn-delete:hover {
+    color: #fff !important;
+}
+
+.btn-edit:hover {
+    color: #212529 !important;
+}
+
+/* Responsive fix for action buttons */
+@media (max-width: 768px) {
+    .action-btn-group {
+        flex-direction: row;
+        gap: 0.15rem;
+    }
+
+    .btn-action {
+        min-width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+        padding: 0.3rem 0.5rem;
+    }
+}

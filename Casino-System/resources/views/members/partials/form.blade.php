@@ -1,4 +1,4 @@
-<div class="container mt-4 rounded-0">
+<div class="container mt-4 rounded-0 my-5">
     <form method="POST" action="{{ isset($member) ? route('members.update', $member->id) : route('members.store') }}">
         @csrf
         @if (isset($member))
@@ -34,10 +34,13 @@
                     Emergency Contact
                 </button>
             </li>
+            <button type="submit" class="btn btn-primary shadow-sm ms-auto rounded-0">
+                {{ isset($member) ? 'Update' : 'Add Membership' }}
+            </button>
         </ul>
 
         {{-- Tabs Content --}}
-        <div class="tab-content" id="memberFormTabsContent">
+        <div class="tab-content mt-2" id="memberFormTabsContent">
             {{-- Personal Info --}}
             <div class="tab-pane fade show active" id="personal" role="tabpanel">
                 <div class="card shadow-sm p-0 rounded-0">
@@ -48,7 +51,10 @@
                                 <label class="form-label">ID No.</label>
                                 <input type="text" name="id_no"
                                     class="form-control form-control-lg @error('id_no') is-invalid @enderror"
-                                    value="{{ old('id_no', $member->id_no ?? '') }}">
+                                    value="{{ old('id_no', $member->id_no ?? '') }}"
+                                    {{ isset($member) ? 'readonly' : '' }}
+                                    {{ isset($member) ? 'disabled' : '' }}
+                                    >
                                 @error('id_no')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -238,15 +244,9 @@
                     </div>
                 </div>
             </div>
-
+            {{-- Submit --}}
         </div>
 
-        {{-- Submit --}}
-        <div class="text-end mt-4">
-            <button type="submit" class="btn btn-lg btn-primary shadow-sm">
-                {{ isset($member) ? 'Update Member' : 'Create Member' }}
-            </button>
-        </div>
     </form>
 </div>
 
