@@ -1,6 +1,6 @@
 <!-- View Modal -->
-<div class="modal fade rounded-0" id="viewMemberModal{{ $member->id }}" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable rounded-0">
+<div class="modal fade" id="viewMemberModal{{ $member->id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
         <div class="modal-content shadow-lg border-0">
             <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title">
@@ -56,8 +56,14 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="p-3 border rounded bg-light">
-                                    <small class="text-muted d-block">ID Number</small>
+                                    <small class="text-muted d-block">Valid ID Number</small>
                                     <span>{{ $member->id_no ?: 'Not provided' }}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded bg-light">
+                                    <small class="text-muted d-block">Valid ID Type</small>
+                                    <span>{{ $member->valid_id_type ?: 'Not provided' }}</span>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -107,6 +113,19 @@
                                 <div class="p-3 border rounded bg-light">
                                     <small class="text-muted d-block">Nationality</small>
                                     <span>{{ $member->nationality ?: 'Not provided' }}</span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="p-3 border rounded bg-light">
+                                    <small class="text-muted d-block">Employment Status</small>
+                                    @if (empty($member->source_of_fund_self) && !empty($member->source_of_fund_employed))
+                                        <span>Employed</span>
+                                    @elseif (!empty($member->source_of_fund_self) && empty($member->source_of_fund_employed))
+                                        <span>Self Employed</span>
+                                    @else
+                                        <span>Not specified</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -179,7 +198,8 @@
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="p-3 border rounded bg-light">
-                                        <small class="text-muted d-block">Politically Exposed</small>
+                                        <small class="text-muted d-block">Have a family Member/s who are politically
+                                            exposed</small>
                                         <span
                                             class="badge {{ $member->politicalExposure->is_exposed ? 'bg-warning text-dark' : 'bg-success' }}">
                                             {{ $member->politicalExposure->is_exposed ? 'Yes' : 'No' }}
@@ -235,6 +255,16 @@
                                         @endif
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="p-3 border rounded bg-light">
+                                        <small class="text-muted d-block">Contact Address</small>
+                                        @if ($member->emergencyContact->emergency_contact_address)
+                                            <span>{{ $member->emergencyContact->emergency_contact_address }}</span>
+                                        @else
+                                            Not provided
+                                        @endif
+                                    </div>
+                                </div>
                             </div>
                         @else
                             <div class="text-center p-4 text-muted">
@@ -249,10 +279,10 @@
             </div>
 
             <div class="modal-footer bg-light">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal">
                     <i class="fas fa-times me-1"></i>Close
                 </button>
-                <a href="{{ route('members.edit', $member->id) }}" class="btn btn-primary">
+                <a href="{{ route('members.edit', $member->id) }}" class="btn btn-primary rounded-0">
                     <i class="fa-regular fa-pen-to-square me-1"></i>Edit Member
                 </a>
             </div>
@@ -266,14 +296,29 @@
         background-color: #0d6efd;
         color: #fff;
         font-weight: 600;
+        border-radius: 0 !important;
+        border: none !important;
     }
 
     .nav-tabs .nav-link {
         border: none;
         color: #495057;
+        border-radius: 0 !important;
+        border: none !important;
     }
 
     .nav-tabs .nav-link:hover {
         color: #0d6efd;
+        border-radius: 0 !important;
+        border: none !important;
+    }
+
+    .modal-content,
+    .modal-dialog,
+    .modal-header,
+    .modal-footer,
+    .modal-body {
+        border-radius: 0 !important;
+        border: none !important;
     }
 </style>

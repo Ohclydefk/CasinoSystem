@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Member;
+use Illuminate\Support\Facades\Crypt;
 
 class MemberRepository
 {
@@ -20,7 +21,14 @@ class MemberRepository
 
     public function find($id)
     {
-        return $this->model->findOrFail($id);
+        $member = $this->model->findOrFail($id);
+        try {
+            $member->id_no = Crypt::decryptString($member->id_no);
+        } catch (\Exception $e) {
+            $member->id_no = null; 
+        }
+
+        return $member;
     }
 
     public function create(array $data)
@@ -43,9 +51,20 @@ class MemberRepository
 
     public function paginate($perPage = 20) // Default to 20
     {
-        return Member::with(['businessDetail', 'employmentDetail', 'politicalExposure', 'emergencyContact'])
+        $members = Member::with(['businessDetail', 'employmentDetail', 'politicalExposure', 'emergencyContact'])
             ->orderBy('id', 'desc')
             ->paginate($perPage);
+
+        // Decrypt id_no for each member
+        $members->getCollection()->transform(function ($member) {
+            try {
+                $member->id_no = Crypt::decryptString($member->id_no);
+            } catch (\Exception $e) {
+                $member->id_no = null;
+            }
+            return $member;
+        });
+
+        return $members;
     }
 }
-

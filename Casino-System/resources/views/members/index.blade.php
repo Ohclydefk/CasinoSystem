@@ -56,12 +56,12 @@
                                 <td><span class="badge bg-light text-dark">{{ $member->nationality }}</span></td>
                                 <td>
                                     <div class="action-btn-group">
-                                        <button class="btn btn-action btn-view btn-outline-primary rounded-3"
+                                        <button class="btn btn-action btn-view btn-outline-primary rounded-0"
                                             data-bs-toggle="modal" data-bs-target="#viewMemberModal{{ $member->id }}"
                                             title="View Details">
                                             <i class="fa-regular fa-eye"></i> View
                                         </button>
-                                        <button class="btn btn-action btn-delete btn-dark rounded-3"
+                                        <button class="btn btn-action btn-delete btn-dark rounded-0"
                                             onclick="confirmDelete({{ $member->id }})" title="Delete Member">
                                             <i class="fa-sharp fa-solid fa-trash"></i>
                                         </button>
