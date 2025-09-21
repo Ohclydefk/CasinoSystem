@@ -252,7 +252,7 @@
                     <div class="card-body bg-light">
                         <div class="form-check mb-3">
                             <input type="checkbox" id="is_exposed" name="is_exposed" class="form-check-input"
-                                {{ old('is_exposed', $member->politicalExposure->is_exposed ?? false) ? 'checked' : '' }}>
+                                {{ !isset($member->politicalExposure->relationship) ? '' : 'checked' }}>
                             <label for="is_exposed" class="form-check-label">Has Politically Exposed Family
                                 Member</label>
                         </div>
@@ -260,7 +260,7 @@
                         <input type="text" id="relationship" name="relationship"
                             class="form-control form-control-lg"
                             value="{{ old('relationship', $member->politicalExposure->relationship ?? '') }}"
-                            {{ old('is_exposed', $member->politicalExposure->is_exposed ?? false) ? '' : 'disabled' }}>
+                            {{ !isset($member->politicalExposure->relationship) ? '' : 'disabled' }}>
                     </div>
                 </div>
             </div>

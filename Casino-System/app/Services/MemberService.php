@@ -106,14 +106,34 @@ class MemberService
                 $validated['id_no'] = \Illuminate\Support\Facades\Crypt::encryptString($validated['id_no']);
             }
 
+            if ($data['source_of_fund'] === "self") {
+                $data['source_of_fund_self'] = 1 ?? true;
+            } else {
+                $data['source_of_fund_self'] = 0 ?? false;
+            }
+
+            if ($data['source_of_fund'] === "employed") {
+                $data['source_of_fund_employed'] = 1 ?? true;
+            } else {
+                $data['source_of_fund_employed'] = 0 ?? false;
+            }
+
+            // dd([
+            //     $data['source_of_fund'],
+            //     "self val: " . $data['source_of_fund_self'],
+            //     "emp val: " . $data['source_of_fund_employed'],
+            // ]);
+
+            // dd($data);
+
             $member = $this->repository->update($id, $validated + [
                 'middle_name' => $data['middle_name'] ?? null,
                 'alt_name' => $data['alt_name'] ?? null,
                 'present_address' => $data['present_address'] ?? null,
                 'permanent_address' => $data['permanent_address'] ?? null,
                 'birthplace' => $data['birthplace'] ?? null,
-                'source_of_fund_self' => isset($data['source_of_fund_self']),
-                'source_of_fund_employed' => isset($data['source_of_fund_employed']),
+                'source_of_fund_self' => $data['source_of_fund_self'],
+                'source_of_fund_employed' => $data['source_of_fund_employed'],
             ]);
 
             // update or create related details
@@ -174,7 +194,6 @@ class MemberService
             'id_presented'         => 'nullable|string|max:255',
             'employer_name'        => 'nullable|string|max:255',
             'nature_of_work'       => 'nullable|string|max:255',
-            'is_exposed'           => 'nullable|boolean',
             'relationship'         => 'nullable|string|max:255',
             'emergency_name'       => 'required|string|max:255',
             'emergency_relationship' => 'required|string|max:255',
