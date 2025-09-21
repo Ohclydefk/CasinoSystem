@@ -3,8 +3,8 @@
 @section('content')
     <div class="page-header d-flex justify-content-between align-items-center">
         <h2 class="page-title">
-            <i class="fas fa-sharp fa-users me-2"></i>
-            Members Directory
+            <i class="fa-sharp fa-solid fa-users-gear me-2"></i>
+            Manage Members
         </h2>
 
         <!-- Search Bar -->
@@ -55,25 +55,14 @@
                                         class="text-decoration-none">{{ $member->mobile_no }}</a></td>
                                 <td><span class="badge bg-light text-dark">{{ $member->nationality }}</span></td>
                                 <td>
-                                    <div class="action-btn-group">
-                                        <button class="btn btn-action btn-view btn-outline-primary rounded-0"
-                                            data-bs-toggle="modal" data-bs-target="#viewMemberModal{{ $member->id }}"
-                                            title="View Details">
-                                            <i class="fa-regular fa-eye"></i> View
-                                        </button>
-                                        {{-- <button class="btn btn-action btn-delete btn-dark rounded-0"
-                                            onclick="confirmDelete({{ $member->id }})" title="Delete Member">
-                                            <i class="fa-sharp fa-solid fa-trash"></i>
-                                        </button> --}}
-                                    </div>
+                                    <button type="button" class="btn btn-action btn-outline-secondary rounded-0"
+                                        title="Manage User" data-bs-toggle="modal"
+                                        data-bs-target="#memberActionsModal{{ $member->id }}">
+                                        <i class="fa-sharp fa-solid fa-user-gear"></i> Manage
+                                    </button>
 
-                                    <form id="delete-form-{{ $member->id }}"
-                                        action="{{ route('members.destroy', $member->id) }}" method="POST"
-                                        style="display: none;">
-                                        @csrf @method('DELETE')
-                                    </form>
-
-                                    @include('members.modals.view-member-info', ['member' => $member])
+                                    <!-- Manage Member Modal -->
+                                    @include('members.modals.manage-member-modal', ['member' => $member])
                                 </td>
                             </tr>
                         @empty
@@ -99,3 +88,26 @@
         </div>
     </div>
 @endsection
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.toggle-actions').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Hide all other popups
+                document.querySelectorAll('.action-popup').forEach(function(popup) {
+                    popup.classList.add('d-none');
+                });
+                // Show this popup
+                btn.nextElementSibling.classList.toggle('d-none');
+            });
+        });
+        // Hide popup when clicking outside
+        document.addEventListener('click', function() {
+            document.querySelectorAll('.action-popup').forEach(function(popup) {
+                popup.classList.add('d-none');
+            });
+        });
+    });
+</script>

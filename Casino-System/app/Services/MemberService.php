@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Repositories\MemberRepository;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Validation\Rule;
 use App\Models\BusinessDetail;
 use App\Models\EmploymentDetail;
 use App\Models\PoliticalExposure;
@@ -39,34 +40,7 @@ class MemberService
     public function store(array $data)
     {
         // Step 1: validate all member data
-        $validator = Validator::make($data, [
-            'id_no'                => 'required|string|unique:members,id_no',
-            'first_name'           => 'required|string|max:100',
-            'middle_name'          => 'nullable|string|max:100',
-            'last_name'            => 'required|string|max:100',
-            'alt_name'             => 'nullable|string|max:100',
-            'email'                => 'required|email|unique:members,email',
-            'mobile_no'            => 'required|string|max:20',
-            'birthdate'            => 'required|date',
-            'birthplace'           => 'nullable|string|max:255',
-            'civil_status'         => 'required|string|max:50',
-            'nationality'          => 'required|string|max:50',
-            'valid_id_type'        => 'required|string|max:100',
-            'present_address'      => 'nullable|string|max:255',
-            'permanent_address'    => 'nullable|string|max:255',
-            'business_name'        => 'nullable|string|max:255',
-            'business_nature'      => 'nullable|string|max:255',
-            'id_presented'         => 'nullable|string|max:255',
-            'employer_name'        => 'nullable|string|max:255',
-            'nature_of_work'       => 'nullable|string|max:255',
-            'is_exposed'           => 'nullable|boolean',
-            'relationship'         => 'nullable|string|max:255',
-            'emergency_name'       => 'required|string|max:255',
-            'emergency_relationship' => 'required|string|max:255',
-            'emergency_contact_number' => 'required|string|max:50',
-            'source_of_fund_self'     => 'nullable',
-            'source_of_fund_employed' => 'nullable',
-        ]);
+        $validator = $this->validateMemberData($data);
 
         if ($validator->fails()) {
             throw new ValidationException($validator);
@@ -115,19 +89,24 @@ class MemberService
 
     public function update($id, array $data)
     {
-        $validator = Validator::make($data, [
-            'first_name'      => 'sometimes|string|max:100',
-            'last_name'       => 'sometimes|string|max:100',
-            'email'           => "sometimes|email|unique:members,email,$id",
-            'mobile_no'       => 'sometimes|string|max:20',
-        ]);
+        // dd($data);
+
+        // Step 1: validate all member data
+        $validator = $this->validateMemberData($data, $id);
 
         if ($validator->fails()) {
             throw new ValidationException($validator);
         }
 
         return DB::transaction(function () use ($id, $validator, $data) {
-            $member = $this->repository->update($id, $validator->validated() + [
+            $validated = $validator->validated();
+
+            // Encrypt id_no before updating
+            if (isset($validated['id_no'])) {
+                $validated['id_no'] = \Illuminate\Support\Facades\Crypt::encryptString($validated['id_no']);
+            }
+
+            $member = $this->repository->update($id, $validated + [
                 'middle_name' => $data['middle_name'] ?? null,
                 'alt_name' => $data['alt_name'] ?? null,
                 'present_address' => $data['present_address'] ?? null,
@@ -164,6 +143,48 @@ class MemberService
         });
     }
 
+    protected function validateMemberData(array $data, $id = null)
+    {
+        $rules = [
+            'id_no' => [
+                'required',
+                'string',
+                'regex:/^\d{3}-\d{3}-\d{3}$/',
+                Rule::unique('members', 'id_no')->ignore($id),
+            ],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('members', 'email')->ignore($id),
+            ],
+            'first_name'           => 'required|string|max:100',
+            'middle_name'          => 'nullable|string|max:100',
+            'last_name'            => 'required|string|max:100',
+            'alt_name'             => 'nullable|string|max:100',
+            'mobile_no'            => 'required|string|max:20',
+            'birthdate'            => 'required|date',
+            'birthplace'           => 'nullable|string|max:255',
+            'civil_status'         => 'required|string|max:50',
+            'nationality'          => 'required|string|max:50',
+            'valid_id_type'        => 'required|string|max:100',
+            'present_address'      => 'nullable|string|max:255',
+            'permanent_address'    => 'nullable|string|max:255',
+            'business_name'        => 'nullable|string|max:255',
+            'business_nature'      => 'nullable|string|max:255',
+            'id_presented'         => 'nullable|string|max:255',
+            'employer_name'        => 'nullable|string|max:255',
+            'nature_of_work'       => 'nullable|string|max:255',
+            'is_exposed'           => 'nullable|boolean',
+            'relationship'         => 'nullable|string|max:255',
+            'emergency_name'       => 'required|string|max:255',
+            'emergency_relationship' => 'required|string|max:255',
+            'emergency_contact_number' => 'required|string|max:50',
+            'source_of_fund_self'     => 'nullable',
+            'source_of_fund_employed' => 'nullable',
+        ];
+
+        return Validator::make($data, $rules);
+    }
     public function delete($id)
     {
         return $this->repository->delete($id);

@@ -25,9 +25,12 @@ class MemberRepository
         try {
             $member->id_no = Crypt::decryptString($member->id_no);
         } catch (\Exception $e) {
-            $member->id_no = null; 
+            $member->id_no = null;
         }
 
+        // $formattedBirthday = $member->birthdate = date('F j, Y', strtotime($member->birthdate)); // Format date e.g. September 20, 2025
+        // dd($formatted);
+        
         return $member;
     }
 

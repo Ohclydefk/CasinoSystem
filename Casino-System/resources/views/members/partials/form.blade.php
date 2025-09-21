@@ -54,41 +54,33 @@
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label class="form-label">Valid ID Number</label>
-                                <div class="input-group w-100">
-                                    <span class="input-group-text"><i class="fa-sharp fa-solid fa-hashtag"></i></span>
-                                    <input type="text" name="id_no"
-                                        class="form-control form-control-lg @error('id_no') is-invalid @enderror"
-                                        value="{{ old('id_no', $member->id_no ?? '') }}"
-                                        {{ isset($member) ? 'readonly disabled' : '' }}>
-                                    @error('id_no')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <input type="text" name="id_no"
+                                    class="form-control form-control-lg @error('id_no') is-invalid @enderror"
+                                    placeholder="Enter valid ID number"
+                                    value="{{ old('id_no', $member->id_no ?? '') }}">
+                                @error('id_no')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Valid ID Type</label>
-                                <div class="input-group w-100">
-                                    <span class="input-group-text"><i class="fa-sharp fa-solid fa-id-card"></i></span>
-                                    <input type="text" name="valid_id_type"
-                                        class="form-control form-control-lg @error('valid_id_type') is-invalid @enderror"
-                                        value="{{ old('valid_id_type', $member->valid_id_type ?? '') }}"
-                                        {{ isset($member) ? 'readonly disabled' : '' }}>
-                                    @error('valid_id_type')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <input type="text" name="valid_id_type"
+                                    class="form-control form-control-lg @error('valid_id_type') is-invalid @enderror"
+                                    placeholder="Enter valid ID type"
+                                    value="{{ old('valid_id_type', $member->valid_id_type ?? '') }}">
+                                @error('valid_id_type')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">First Name</label>
-                                <div class="input-group w-100">
-                                    <span class="input-group-text"><i class="fa-sharp fa-solid fa-user"></i></span>
-                                    <input type="text" name="first_name"
-                                        class="form-control form-control-lg @error('first_name') is-invalid @enderror"
-                                        value="{{ old('first_name', $member->first_name ?? '') }}">
-                                    @error('first_name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <input type="text" name="first_name"
+                                    class="form-control form-control-lg @error('first_name') is-invalid @enderror"
+                                    placeholder="Enter first name"
+                                    value="{{ old('first_name', $member->first_name ?? '') }}">
+                                @error('first_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -96,31 +88,25 @@
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label class="form-label">Middle Name</label>
-                                <div class="input-group w-100">
-                                    <span class="input-group-text"><i class="fa-sharp fa-solid fa-user"></i></span>
-                                    <input type="text" name="middle_name" class="form-control form-control-lg"
-                                        value="{{ old('middle_name', $member->middle_name ?? '') }}">
-                                </div>
+                                <input type="text" name="middle_name" class="form-control form-control-lg"
+                                    placeholder="Enter middle name"
+                                    value="{{ old('middle_name', $member->middle_name ?? '') }}">
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Last Name</label>
-                                <div class="input-group w-100">
-                                    <span class="input-group-text"><i class="fa-sharp fa-solid fa-user"></i></span>
-                                    <input type="text" name="last_name"
-                                        class="form-control form-control-lg @error('last_name') is-invalid @enderror"
-                                        value="{{ old('last_name', $member->last_name ?? '') }}">
-                                    @error('last_name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <input type="text" name="last_name"
+                                    class="form-control form-control-lg @error('last_name') is-invalid @enderror"
+                                    placeholder="Enter last name"
+                                    value="{{ old('last_name', $member->last_name ?? '') }}">
+                                @error('last_name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Alternative Name (Social Media)</label>
-                                <div class="input-group w-100">
-                                    <span class="input-group-text"><i class="fa-sharp fa-solid fa-at"></i></span>
-                                    <input type="text" name="alt_name" class="form-control form-control-lg"
-                                        value="{{ old('alt_name', $member->alt_name ?? '') }}">
-                                </div>
+                                <input type="text" name="alt_name" class="form-control form-control-lg"
+                                    placeholder="Enter alternative name"
+                                    value="{{ old('alt_name', $member->alt_name ?? '') }}">
                             </div>
                         </div>
 
@@ -128,21 +114,15 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label class="form-label">Present Address</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i
-                                            class="fa-sharp fa-solid fa-map-marker-alt"></i></span>
-                                    <input type="text" name="present_address" class="form-control form-control-lg"
-                                        value="{{ old('present_address', $member->present_address ?? '') }}">
-                                </div>
+                                <input type="text" name="present_address" class="form-control form-control-lg"
+                                    placeholder="Enter present address"
+                                    value="{{ old('present_address', $member->present_address ?? '') }}">
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Permanent Address</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fa-sharp fa-solid fa-home"></i></span>
-                                    <input type="text" name="permanent_address"
-                                        class="form-control form-control-lg"
-                                        value="{{ old('permanent_address', $member->permanent_address ?? '') }}">
-                                </div>
+                                <input type="text" name="permanent_address" class="form-control form-control-lg"
+                                    placeholder="Enter permanent address"
+                                    value="{{ old('permanent_address', $member->permanent_address ?? '') }}">
                             </div>
                         </div>
 
@@ -150,48 +130,39 @@
                         <div class="row mb-3">
                             <div class="col-md-4">
                                 <label class="form-label">Birthdate</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i
-                                            class="fa-sharp fa-solid fa-calendar-alt"></i></span>
-                                    <input type="date" name="birthdate"
-                                        class="form-control form-control-lg @error('birthdate') is-invalid @enderror"
-                                        value="{{ old('birthdate', $member->birthdate ?? '') }}">
-                                    @error('birthdate')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <input type="date" name="birthdate"
+                                    class="form-control form-control-lg @error('birthdate') is-invalid @enderror"
+                                    placeholder="Select birthdate"
+                                    value="{{ old('birthdate', $member->birthdate ?? '') }}">
+                                @error('birthdate')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Birth Place</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fa-sharp fa-solid fa-map-pin"></i></span>
-                                    <input type="text" name="birthplace" class="form-control form-control-lg"
-                                        value="{{ old('birthplace', $member->birthplace ?? '') }}">
-                                </div>
+                                <input type="text" name="birthplace" class="form-control form-control-lg"
+                                    placeholder="Enter birth place"
+                                    value="{{ old('birthplace', $member->birthplace ?? '') }}">
                             </div>
                             <div class="col-md-2">
                                 <label class="form-label">Civil Status</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fa-sharp fa-solid fa-heart"></i></span>
-                                    <input type="text" name="civil_status"
-                                        class="form-control form-control-lg @error('civil_status') is-invalid @enderror"
-                                        value="{{ old('civil_status', $member->civil_status ?? '') }}">
-                                    @error('civil_status')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <input type="text" name="civil_status"
+                                    class="form-control form-control-lg @error('civil_status') is-invalid @enderror"
+                                    placeholder="Enter civil status"
+                                    value="{{ old('civil_status', $member->civil_status ?? '') }}">
+                                @error('civil_status')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-2">
                                 <label class="form-label">Nationality</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="fa-sharp fa-solid fa-flag"></i></span>
-                                    <input type="text" name="nationality"
-                                        class="form-control form-control-lg @error('nationality') is-invalid @enderror"
-                                        value="{{ old('nationality', $member->nationality ?? '') }}">
-                                    @error('nationality')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <input type="text" name="nationality"
+                                    class="form-control form-control-lg @error('nationality') is-invalid @enderror"
+                                    placeholder="Enter nationality"
+                                    value="{{ old('nationality', $member->nationality ?? '') }}">
+                                @error('nationality')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
 
@@ -199,32 +170,25 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label class="form-label">Email</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i
-                                            class="fa-sharp fa-solid fa-envelope"></i></span>
-                                    <input type="email" name="email"
-                                        class="form-control form-control-lg @error('email') is-invalid @enderror"
-                                        value="{{ old('email', $member->email ?? '') }}">
-                                    @error('email')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <input type="email" name="email"
+                                    class="form-control form-control-lg @error('email') is-invalid @enderror"
+                                    placeholder="Enter email address"
+                                    value="{{ old('email', $member->email ?? '') }}">
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Mobile No.</label>
-                                <div class="input-group">
-                                    <span class="input-group-text"><i
-                                            class="fa-sharp fa-solid fa-mobile-alt"></i></span>
-                                    <input type="text" name="mobile_no"
-                                        class="form-control form-control-lg @error('mobile_no') is-invalid @enderror"
-                                        value="{{ old('mobile_no', $member->mobile_no ?? '') }}">
-                                    @error('mobile_no')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                <input type="text" name="mobile_no"
+                                    class="form-control form-control-lg @error('mobile_no') is-invalid @enderror"
+                                    placeholder="Enter mobile number"
+                                    value="{{ old('mobile_no', $member->mobile_no ?? '') }}">
+                                @error('mobile_no')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -249,23 +213,29 @@
                             <label for="fund_employed" class="form-check-label">Employed</label>
                         </div>
 
-                        <h6 class="text-success"><i class="fa-sharp fa-solid fa-briefcase me-1"></i> Business Details
+                        <h6 class="text-success mb-4"><i class="fa-sharp fa-solid fa-briefcase me-1"></i> Business
+                            Details
                         </h6>
-                        <input type="text" name="business_name" class="form-control form-control-lg mb-2"
-                            placeholder="Business Name"
+                        <label for="business_name" class="form-label">Business Name</label>
+                        <input type="text" name="business_name" class="form-control form-control-lg mb-3"
+                            placeholder="e.g., ABC Trading, XYZ Solutions, etc."
                             value="{{ old('business_name', $member->businessDetail->business_name ?? '') }}">
-                        <input type="text" name="business_nature" class="form-control form-control-lg mb-2"
-                            placeholder="Nature of Business"
+                        <label for="business_nature" class="form-label">Nature of Business</label>
+                        <input type="text" name="business_nature" class="form-control form-control-lg mb-3"
+                            placeholder="e.g., Retail, IT, Manufacturing, etc."
                             value="{{ old('business_nature', $member->businessDetail->business_nature ?? '') }}">
+                        <label for="id_presented" class="form-label">ID Presented</label>
                         <input type="text" name="id_presented" class="form-control form-control-lg mb-4"
-                            placeholder="ID Presented"
+                            placeholder="National ID, Passport, Driver's License, etc."
                             value="{{ old('id_presented', $member->businessDetail->id_presented ?? '') }}">
 
                         <h6 class="text-success"><i class="fa-sharp fa-solid fa-id-badge me-1"></i> Employment Details
                         </h6>
+                        <label for="employer_name" class="form-label">Employer Name</label>
                         <input type="text" name="employer_name" class="form-control form-control-lg mb-2"
                             placeholder="Employer Name"
                             value="{{ old('employer_name', $member->employmentDetail->employer_name ?? '') }}">
+                        <label for="nature_of_work" class="form-label">Nature of Work</label>
                         <input type="text" name="nature_of_work" class="form-control form-control-lg"
                             placeholder="Nature of Work"
                             value="{{ old('nature_of_work', $member->employmentDetail->nature_of_work ?? '') }}">

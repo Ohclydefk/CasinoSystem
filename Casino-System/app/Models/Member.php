@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Member extends Model
 {
@@ -53,5 +54,10 @@ class Member extends Model
     public function politicalExposure()
     {
         return $this->hasOne(PoliticalExposure::class);
+    }
+
+    public function getBirthdateAttribute($value)
+    {
+        return $value ? Carbon::parse($value)->format('Y-m-d') : null;
     }
 }

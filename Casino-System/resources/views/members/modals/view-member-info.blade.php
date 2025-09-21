@@ -94,7 +94,9 @@
                             <div class="col-md-6">
                                 <div class="p-3 border rounded">
                                     <small class="text-muted d-block">Birthdate</small>
-                                    <span>{{ $member->birthdate ?: 'Not provided' }}</span>
+                                    <span class="birthdate-display" data-date="{{ $member->birthdate }}">
+                                        {{ $member->birthdate ?: 'Not provided' }}
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -201,7 +203,7 @@
                                         <small class="text-muted d-block">Have a family Member/s who are politically
                                             exposed</small>
                                         <span
-                                            class="badge {{ $member->politicalExposure->is_exposed ? 'bg-warning text-dark' : 'bg-success' }}">
+                                            class="badge {{ $member->politicalExposure->is_exposed ? 'bg-success text-light' : 'bg-danger text-light' }}">
                                             {{ $member->politicalExposure->is_exposed ? 'Yes' : 'No' }}
                                         </span>
                                     </div>
@@ -282,13 +284,15 @@
                 <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal">
                     <i class="fas fa-times me-1"></i>Close
                 </button>
-                <a href="{{ route('members.edit', $member->id) }}" class="btn btn-primary rounded-0">
+                {{-- <a href="{{ route('members.edit', $member->id) }}" class="btn btn-primary rounded-0">
                     <i class="fa-regular fa-pen-to-square me-1"></i>Edit Member
-                </a>
+                </a> --}}
             </div>
         </div>
     </div>
 </div>
+
+<script src="{{ asset('js/view-modal/date_formatter_support.js') }}"></script>
 
 <style>
     /* Highlight active tab */
@@ -308,7 +312,7 @@
     }
 
     .nav-tabs .nav-link:hover {
-        color: #0d6efd;
+        color: #134b9e;
         border-radius: 0 !important;
         border: none !important;
     }

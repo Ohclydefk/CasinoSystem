@@ -22,6 +22,13 @@ class MemberController extends Controller
         return view('members.index', compact('members'));
     }
 
+    public function manage()
+    {
+        $members = $this->service->getAllPaginated(10); // Customize pagination here
+
+        return view('members.manage', compact('members'));
+    }   
+
     public function create()
     {
         return view('members.create');

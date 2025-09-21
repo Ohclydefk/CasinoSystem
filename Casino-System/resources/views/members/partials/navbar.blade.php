@@ -3,10 +3,10 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('members.index') }}">Casino System</a>
             <div>
-                <a href="#" class="btn btn-outline-light me-2">
-                    <i class="fas fa-sign-in-alt"></i> Login
+                <a href="#" class="btn btn-outline-light me-2 rounded-0">
+                    <i class="fas fa-sharp fa-sign-in-alt"></i> Login
                 </a>
-                <a href="#" class="btn btn-primary">
+                <a href="#" class="btn btn-primary rounded-0">
                     <i class="fas fa-user-plus"></i> Create Account
                 </a>
             </div>

@@ -20,6 +20,7 @@ class EmergencyContactFactory extends Factory
             'name' => $this->faker->name,
             'relationship' => $this->faker->randomElement(['Parent', 'Sibling', 'Friend', 'Spouse']),
             'contact_number' => $this->faker->phoneNumber,
+            'emergency_contact_address' => $this->faker->address,
         ];
     }
 }
