@@ -4,38 +4,11 @@
 <head>
     <title>Casino System - Membership</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/view-member-info.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @if (config('app.fontawesome_kit'))
         <script src="{{ config('app.fontawesome_kit') }}" crossorigin="anonymous"></script>
     @endif
-    <style>
-        body {
-            overflow-x: hidden;
-            padding-top: 56px;
-            /* height of navbar */
-        }
-
-        .sidebar {
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 56px;
-            /* push down below navbar */
-        }
-
-        main {
-            margin-left: 16.6667%;
-            /* 2 columns (col-md-2) */
-        }
-
-        .nav-link.active {
-            background-color: #0d6efd;
-            border-radius: .375rem;
-        }
-
-        .nav-custom-bg {
-            background-color: #303742;
-        }
-    </style>
 
 </head>
 

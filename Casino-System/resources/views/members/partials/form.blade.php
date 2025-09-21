@@ -312,20 +312,5 @@
     </form>
 </div>
 
-{{-- Small Script for Political Input --}}
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const exposedCheckbox = document.getElementById("is_exposed");
-        const relationshipInput = document.getElementById("relationship");
-
-        function toggleRelationship() {
-            relationshipInput.disabled = !exposedCheckbox.checked;
-            if (!exposedCheckbox.checked) {
-                relationshipInput.value = "";
-            }
-        }
-
-        exposedCheckbox.addEventListener("change", toggleRelationship);
-        toggleRelationship();
-    });
-</script>
+{{-- Small Script for Inputs --}}
+<script src="{{ asset('js/form/inputs.js') }}"></script>

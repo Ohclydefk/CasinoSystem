@@ -17,26 +17,44 @@
                     {{ $member->first_name }}
                     {{ $member->middle_name ? $member->middle_name . ' ' : '' }}{{ $member->last_name }}
                 </h3>
-                <h5 class="text-muted mb-4">ID: {{ $member->id_no }}</h3>
+                <h5 class="text-muted mb-4">{{ $member->valid_id_type }}: {{ $member->id_no }}</h3>
 
-                <!-- Description -->
-                <p class="text-muted mb-4">
-                    Choose what action you want to perform below.
-                </p>
+                    <!-- Description -->
+                    <p class="text-muted mb-4">
+                        Choose what action you want to perform below.
+                    </p>
 
-                <!-- Actions -->
-                <a href="{{ route('members.edit', $member->id) }}"
-                    class="btn btn-action btn-primary rounded-0 me-2 mb-2" title="Edit User">
-                    <i class="fa-sharp fa-solid fa-edit"></i> Update
-                </a>
+                    <!-- Actions -->
+                    <a href="{{ route('members.edit', $member->id) }}"
+                        class="btn btn-action btn-primary rounded-0 me-2 mb-2" title="Edit User">
+                        <i class="fa-sharp fa-solid fa-edit"></i> Update
+                    </a>
 
-                <form action="{{ route('members.destroy', $member->id) }}" method="POST" style="display:inline;">
-                    @csrf @method('DELETE')
-                    <button type="submit" class="btn btn-action btn-danger rounded-0 mb-2" title="Delete User"
-                        onclick="return confirm('Are you sure you want to delete {{ $member->name }}?')">
-                        <i class="fa-sharp fa-solid fa-trash"></i> Delete
-                    </button>
-                </form>
+                    <form action="{{ route('members.destroy', $member->id) }}" method="POST" style="display:inline;">
+                        @csrf @method('DELETE')
+                        <button type="submit" class="btn btn-action btn-secondary text-light rounded-0 me-2 mb-2"
+                            title="Archive User"
+                            onclick="return confirm('Are you sure you want to delete {{ $member->name }}?')">
+                            <i class="fa-sharp fa-solid fa-archive text-light"></i> Archive
+                        </button>
+                    </form>
+
+                    <form action="{{ route('members.destroy', $member->id) }}" method="POST" style="display:inline;">
+                        @csrf @method('DELETE')
+                        <button type="submit" class="btn btn-action btn-secondary text-light rounded-0 me-2 mb-2"
+                            title="Lock User"
+                            onclick="return confirm('Are you sure you want to lock {{ $member->name }}?')">
+                            <i class="fa-sharp fa-solid fa-user-lock"></i> Lock
+                        </button>
+                    </form>
+
+                    <form action="{{ route('members.destroy', $member->id) }}" method="POST" style="display:inline;">
+                        @csrf @method('DELETE')
+                        <button type="submit" class="btn btn-action btn-secondary rounded-0 mb-2" title="Delete User"
+                            onclick="return confirm('Are you sure you want to delete {{ $member->name }}?')">
+                            <i class="fa-sharp fa-solid fa-trash"></i> Delete
+                        </button>
+                    </form>
             </div>
         </div>
     </div>

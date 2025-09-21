@@ -284,6 +284,10 @@
                 <button type="button" class="btn btn-secondary rounded-0" data-bs-dismiss="modal">
                     <i class="fas fa-times me-1"></i>Close
                 </button>
+                <a href="{{ route('members.edit', $member->id) }}"
+                    class="btn btn-action btn-primary rounded-0 me-2" title="Edit User">
+                    <i class="fa-sharp fa-solid fa-edit"></i> Update
+                </a>
                 {{-- <a href="{{ route('members.edit', $member->id) }}" class="btn btn-primary rounded-0">
                     <i class="fa-regular fa-pen-to-square me-1"></i>Edit Member
                 </a> --}}
@@ -294,35 +298,3 @@
 
 <script src="{{ asset('js/view-modal/date_formatter_support.js') }}"></script>
 
-<style>
-    /* Highlight active tab */
-    .nav-tabs .nav-link.active {
-        background-color: #0d6efd;
-        color: #fff;
-        font-weight: 600;
-        border-radius: 0 !important;
-        border: none !important;
-    }
-
-    .nav-tabs .nav-link {
-        border: none;
-        color: #495057;
-        border-radius: 0 !important;
-        border: none !important;
-    }
-
-    .nav-tabs .nav-link:hover {
-        color: #134b9e;
-        border-radius: 0 !important;
-        border: none !important;
-    }
-
-    .modal-content,
-    .modal-dialog,
-    .modal-header,
-    .modal-footer,
-    .modal-body {
-        border-radius: 0 !important;
-        border: none !important;
-    }
-</style>

@@ -90,7 +90,7 @@
 @endsection
 
 
-<script>
+{{-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.toggle-actions').forEach(function(btn) {
             btn.addEventListener('click', function(e) {
@@ -110,4 +110,4 @@
             });
         });
     });
-</script>
+</script> --}}

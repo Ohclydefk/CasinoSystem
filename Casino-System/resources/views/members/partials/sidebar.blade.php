@@ -21,13 +21,15 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('members.manage') }}" class="nav-link {{ request()->routeIs('members.manage') ? 'active text-white' : 'text-light' }}">
+                <a href="{{ route('members.manage') }}"
+                    class="nav-link {{ request()->routeIs('members.manage') || request()->routeIs('members.edit') ? 'active text-white' : 'text-light' }}">
                     <span class="d-flex align-items-center">
                         <i class="fa-sharp fa-solid fa-users-gear me-2"></i>
                         <span>Manage Members</span>
                     </span>
                 </a>
             </li>
+
         </ul>
     </div>
 </nav>
