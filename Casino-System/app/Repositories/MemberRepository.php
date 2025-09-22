@@ -4,10 +4,14 @@ namespace App\Repositories;
 
 use App\Models\Member;
 use Illuminate\Support\Facades\Crypt;
+use PhpParser\Node\Stmt\TryCatch;
+use App\Traits\IdDecryptor;
+
 
 class MemberRepository
 {
     protected $model;
+    use IdDecryptor;
 
     public function __construct(Member $member)
     {
@@ -22,16 +26,16 @@ class MemberRepository
     public function find($id)
     {
         $member = $this->model->findOrFail($id);
-        try {
-            $member->id_no = Crypt::decryptString($member->id_no);
-        } catch (\Exception $e) {
-            $member->id_no = null;
-        }
+        return $this->decryptIdNo($member);
+    }
 
-        // $formattedBirthday = $member->birthdate = date('F j, Y', strtotime($member->birthdate)); // Format date e.g. September 20, 2025
-        // dd($formatted);
-        
-        return $member;
+    public function findActive($id)
+    {
+        $member = $this->model
+            ->where('status', 'active')
+            ->findOrFail($id);
+
+        return $this->decryptIdNo($member);
     }
 
     public function create(array $data)
@@ -52,22 +56,48 @@ class MemberRepository
         return $member->delete();
     }
 
-    public function paginate($perPage = 20) // Default to 20
+    public function paginate($perPage = 20, $type = "all")
     {
-        $members = Member::with(['businessDetail', 'employmentDetail', 'politicalExposure', 'emergencyContact'])
-            ->orderBy('id', 'desc')
-            ->paginate($perPage);
+
+        $data_to_be_shown = ['archived', 'filtered', 'onhold', 'disabled', 'all'];
+
+        if (!in_array($type, $data_to_be_shown)) {
+            $type = "all";
+        }
+
+        $query = Member::with(['businessDetail', 'employmentDetail', 'politicalExposure', 'emergencyContact'])
+            ->orderBy('id', 'desc');
+
+        switch ($type) {
+            case "archived":
+                $query->where('status', 'archived');
+                break;
+
+            case "disabled":
+                $query->where('status', 'disabled');
+                break;
+
+            case "onhold":
+                $query->where('status', 'hold');
+                break;
+
+            case "filtered":
+                $query->where('status', 'active');
+                break;
+
+            case "show_all":
+            case "all":
+            default:
+                // exclude archived and disabled by default
+                $query->whereNotIn('status', ['archived', 'disabled', 'hold']);
+                break;
+        }
+
+        $members = $query->paginate($perPage);
 
         // Decrypt id_no for each member
-        $members->getCollection()->transform(function ($member) {
-            try {
-                $member->id_no = Crypt::decryptString($member->id_no);
-            } catch (\Exception $e) {
-                $member->id_no = null;
-            }
-            return $member;
-        });
-
+        $this->decryptIdNoCollection($members);
+        
         return $members;
     }
 }

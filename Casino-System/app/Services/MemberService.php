@@ -29,12 +29,22 @@ class MemberService
 
     public function getById($id)
     {
-        return $this->repository->find($id);
+        return $this->repository->findActive($id);
     }
 
-    public function getAllPaginated($perPage = 20) // Default to 20
+    public function paginated($perPage = 20, $type = "all") // Default to 20
     {
-        return $this->repository->paginate($perPage);
+        return $this->repository->paginate($perPage, $type);
+    }
+
+    public function archiveMember($id)
+    {
+        return $this->repository->update($id, ['status' => 'archived']);
+    }
+
+    public function unarchive($id)
+    {
+        return $this->repository->update($id, ['status' => 'active']);
     }
 
     public function store(array $data)
@@ -113,18 +123,10 @@ class MemberService
             }
 
             if ($data['source_of_fund'] === "employed") {
-                $data['source_of_fund_employed'] = 1 ?? true;
+                $data['source_of_fund_employed'] = 1;
             } else {
-                $data['source_of_fund_employed'] = 0 ?? false;
+                $data['source_of_fund_employed'] = 0;
             }
-
-            // dd([
-            //     $data['source_of_fund'],
-            //     "self val: " . $data['source_of_fund_self'],
-            //     "emp val: " . $data['source_of_fund_employed'],
-            // ]);
-
-            // dd($data);
 
             $member = $this->repository->update($id, $validated + [
                 'middle_name' => $data['middle_name'] ?? null,
@@ -169,7 +171,7 @@ class MemberService
             'id_no' => [
                 'required',
                 'string',
-                'regex:/^\d{3}-\d{3}-\d{3}$/',
+                'regex:/^\d{3}-\d{3}-\d{3}$/', // Regex (###-###-###)
                 Rule::unique('members', 'id_no')->ignore($id),
             ],
             'email' => [
@@ -204,6 +206,7 @@ class MemberService
 
         return Validator::make($data, $rules);
     }
+
     public function delete($id)
     {
         return $this->repository->delete($id);

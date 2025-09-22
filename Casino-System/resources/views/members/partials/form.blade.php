@@ -213,9 +213,7 @@
                             <label for="fund_employed" class="form-check-label">Employed</label>
                         </div>
 
-                        <h6 class="text-success mb-4"><i class="fa-sharp fa-solid fa-briefcase me-1"></i> Business
-                            Details
-                        </h6>
+                        <h4 class="text-secondary mb-2">BusinessDetails</h4>
                         <label for="business_name" class="form-label">Business Name</label>
                         <input type="text" name="business_name" class="form-control form-control-lg mb-3"
                             placeholder="e.g., ABC Trading, XYZ Solutions, etc."
@@ -229,8 +227,7 @@
                             placeholder="National ID, Passport, Driver's License, etc."
                             value="{{ old('id_presented', $member->businessDetail->id_presented ?? '') }}">
 
-                        <h6 class="text-success"><i class="fa-sharp fa-solid fa-id-badge me-1"></i> Employment Details
-                        </h6>
+                        <h4 class="text-secondary mb-2">Employment Details</h4>
                         <label for="employer_name" class="form-label">Employer Name</label>
                         <input type="text" name="employer_name" class="form-control form-control-lg mb-2"
                             placeholder="Employer Name"

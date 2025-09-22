@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Carbon\Carbon;
 
 class Member extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'members';
 
@@ -28,12 +29,18 @@ class Member extends Model
         'mobile_no',
         'source_of_fund_self',
         'source_of_fund_employed',
+        'status'
     ];
 
     protected $casts = [
         'birthdate' => 'date',
         'source_of_fund_self' => 'boolean',
         'source_of_fund_employed' => 'boolean',
+    ];
+
+    protected $dates = [
+        'birthdate',
+        'deleted_at',  
     ];
 
     public function businessDetail()

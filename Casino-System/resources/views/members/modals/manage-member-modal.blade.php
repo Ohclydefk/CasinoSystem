@@ -30,11 +30,12 @@
                         <i class="fa-sharp fa-solid fa-edit"></i> Update
                     </a>
 
-                    <form action="{{ route('members.destroy', $member->id) }}" method="POST" style="display:inline;">
-                        @csrf @method('DELETE')
+                    <form action="{{ route('members.archive-member', $member->id) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('PATCH')
                         <button type="submit" class="btn btn-action btn-secondary text-light rounded-0 me-2 mb-2"
                             title="Archive User"
-                            onclick="return confirm('Are you sure you want to delete {{ $member->name }}?')">
+                            onclick="return confirm('Are you sure you want to archive {{ $member->first_name }} {{ $member->last_name }}?')">
                             <i class="fa-sharp fa-solid fa-archive text-light"></i> Archive
                         </button>
                     </form>

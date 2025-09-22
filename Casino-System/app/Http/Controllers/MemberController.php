@@ -17,21 +17,45 @@ class MemberController extends Controller
 
     public function index()
     {
-        $members = $this->service->getAllPaginated(10); // Customize pagination here
+        $members = $this->service->paginated(10, $type = "all"); // Customize pagination here
 
         return view('members.index', compact('members'));
     }
 
+    public function dashboard()
+    {
+        return view('members.dashboard');
+    }
+
     public function manage()
     {
-        $members = $this->service->getAllPaginated(10); // Customize pagination here
+        $members = $this->service->paginated(10, $type = "all"); // Customize pagination here
 
         return view('members.manage', compact('members'));
-    }   
+    }
 
     public function create()
     {
         return view('members.create');
+    }
+
+    public function archives()
+    {
+        $members = $this->service->paginated(10, $type = "archived"); // Customize pagination here
+        return view('members.archived-members', compact('members'));
+    }
+
+    public function archiveMember($id)
+    {
+        $this->service->archiveMember($id);
+        return redirect()->route('members.index')->with('success', 'Member archived successfully.');
+    }
+
+    public function unarchive($id)
+    {
+        $this->service->unarchive($id);
+
+        return redirect()->route('members.index')->with('success', 'Member unarchived successfully.');
     }
 
     public function store(Request $request)
@@ -47,8 +71,10 @@ class MemberController extends Controller
     public function edit($id)
     {
         $member = $this->service->getById($id);
+
         return view('members.edit', compact('member'));
     }
+
 
     public function update(Request $request, $id)
     {

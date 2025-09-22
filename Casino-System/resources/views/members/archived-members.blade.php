@@ -41,7 +41,7 @@
                     <tbody>
                         @forelse($members as $member)
                             <tr>
-                                <td><span class="member-id-badge">{{ $member->id_no }}</span></td>
+                                <td><span class="member-id-badge">{{ $member->id_no }} </span></td>
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <span class="status-online"></span>
@@ -58,23 +58,29 @@
                                 <td>{{ $member->valid_id_type }}</td>
                                 <td><span class="badge bg-light text-dark">{{ $member->nationality }}</span></td>
                                 <td>
-                                    <button type="button" class="btn btn-action btn-outline-secondary rounded-0"
-                                        title="Manage User" data-bs-toggle="modal"
-                                        data-bs-target="#memberActionsModal{{ $member->id }}">
-                                        <i class="fa-sharp fa-solid fa-user-gear"></i> Manage
+                                    <button type="button"
+                                        class="btn btn-action btn-outline-secondary rounded-0 unarchive-btn"
+                                        data-id="{{ $member->id }}"
+                                        data-name="{{ $member->first_name }} {{ $member->last_name }}">
+                                        <i class="fa-sharp fa-solid fa-box-open"></i> Unarchive
                                     </button>
 
-                                    <!-- Manage Member Modal -->
-                                    @include('members.modals.manage-member-modal', ['member' => $member])
+                                    <form id="unarchive-form-{{ $member->id }}"
+                                        action="{{ route('members.unarchive', $member->id) }}" method="POST"
+                                        style="display:none;">
+                                        @csrf
+                                        @method('PATCH')
+                                    </form>
+
                                 </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6">
+                                <td colspan="12">
                                     <div class="empty-state">
                                         <i class="fas fa-users"></i>
                                         <h6>No Members Found</h6>
-                                        <p class="text-muted">No members have been added yet.</p>
+                                        <p class="text-muted">No archived members yet.</p>
                                     </div>
                                 </td>
                             </tr>
@@ -92,25 +98,33 @@
     </div>
 @endsection
 
+<script>
+    document.querySelectorAll('.unarchive-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            let memberId = this.dataset.id;
+            let memberName = this.dataset.name;
 
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.toggle-actions').forEach(function(btn) {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                // Hide all other popups
-                document.querySelectorAll('.action-popup').forEach(function(popup) {
-                    popup.classList.add('d-none');
-                });
-                // Show this popup
-                btn.nextElementSibling.classList.toggle('d-none');
-            });
-        });
-        // Hide popup when clicking outside
-        document.addEventListener('click', function() {
-            document.querySelectorAll('.action-popup').forEach(function(popup) {
-                popup.classList.add('d-none');
+            swal({
+                title: "Unarchive Member?",
+                text: "Do you want to unarchive " + memberName + "?",
+                icon: "warning",
+                buttons: {
+                    cancel: {
+                        text: "Cancel",
+                        visible: true,
+                        className: "btn btn-secondary"
+                    },
+                    confirm: {
+                        text: "Yes, unarchive",
+                        className: "btn btn-success"
+                    }
+                },
+                dangerMode: true,
+            }).then((willUnarchive) => {
+                if (willUnarchive) {
+                    document.getElementById('unarchive-form-' + memberId).submit();
+                }
             });
         });
     });
-</script> --}}
+</script>

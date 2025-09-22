@@ -32,6 +32,7 @@
                             <th><i class="fa-sharp fa-solid fa-user me-2"></i>Name</th>
                             <th><i class="fa-sharp fa-solid fa-envelope me-2"></i>Email</th>
                             <th><i class="fa-sharp fa-solid fa-mobile-alt me-2"></i>Mobile</th>
+                            <th><i class="fa-sharp fa-solid fa-id-badge me-2"></i>Valid ID</th>
                             <th><i class="fa-sharp fa-solid fa-flag me-2"></i>Nationality</th>
                             <th><i class="fa-sharp fa-solid fa-cogs me-2"></i>Actions</th>
                         </tr>
@@ -52,7 +53,9 @@
                                 </td>
                                 <td>{{ $member->email }}</td>
                                 <td><a href="tel:{{ $member->mobile_no }}"
-                                        class="text-decoration-none">{{ $member->mobile_no }}</a></td>
+                                        class="text-decoration-none">{{ $member->mobile_no }}</a>
+                                    </td>
+                                <td>{{ $member->valid_id_type }}</td>
                                 <td><span class="badge bg-light text-dark">{{ $member->nationality }}</span></td>
                                 <td>
                                     <div class="action-btn-group">
@@ -78,7 +81,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6">
+                                <td colspan="12">
                                     <div class="empty-state">
                                         <i class="fas fa-users"></i>
                                         <h6>No Members Found</h6>
